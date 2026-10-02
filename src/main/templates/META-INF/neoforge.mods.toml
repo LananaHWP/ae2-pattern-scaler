@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="Local client helper"
+description='''
+Adds all-at-once quantity scaling controls to AE2's Processing Pattern editor.
+Uses only AE2's existing client-to-server pattern-slot edits.
+'''
+
+[[dependencies.${mod_id}]]
+modId="neoforge"
+type="required"
+versionRange="[21.1,22)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.${mod_id}]]
+modId="ae2"
+type="required"
+versionRange="[19.2.0,19.3.0)"
+ordering="AFTER"
+side="CLIENT"

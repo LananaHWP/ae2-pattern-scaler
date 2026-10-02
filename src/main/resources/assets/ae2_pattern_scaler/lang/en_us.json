@@ -1,0 +1,9 @@
+{
+  "ae2_pattern_scaler.tooltip.multiply": "Multiply every non-empty processing input and output by %s. Nothing changes if any result exceeds AE2's normal limit.",
+  "ae2_pattern_scaler.tooltip.divide": "Divide every non-empty processing input and output by %s. Every result must be exact at whole-item or whole-millibucket precision and remain nonzero.",
+  "ae2_pattern_scaler.message.empty": "There are no processing-pattern quantities to scale.",
+  "ae2_pattern_scaler.message.limit": "Cannot %1$s %2$s: the result would exceed AE2's normal limit of %3$s.",
+  "ae2_pattern_scaler.message.inexact": "Cannot %1$s %2$s: %3$s is not exactly divisible at AE2's stored precision (%4$s).",
+  "ae2_pattern_scaler.message.zero": "Cannot %1$s %2$s: the result would be zero.",
+  "ae2_pattern_scaler.message.success": "%1$s applied to %2$s processing-pattern quantities."
+}
