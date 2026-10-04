@@ -17,11 +17,11 @@ One click scales every filled input and output. Empty slots stay empty, and the 
 
 ## Compatibility
 
-- Minecraft 1.21.1
-- NeoForge 21.1.x
-- Applied Energistics 2 19.2.x
+- Minecraft 26.2
+- NeoForge 26.2.x
+- Applied Energistics 2 26.2.x
 
-This release was built with NeoForge 21.1.248 and AE2 19.2.17. Its metadata accepts AE2 versions from 19.2.0 up to, but not including, 19.3.0.
+This branch was built with NeoForge 26.2.0.88 and AE2 26.2.1-alpha. Its metadata accepts AE2 versions from 26.2.0 up to, but not including, 26.3.0.
 
 ## Installation
 
@@ -43,7 +43,7 @@ Division must be exact for every filled slot. For example, `200 mB ÷ 8` becomes
 
 ## Building
 
-Use JDK 21 and run:
+Use JDK 25 and run:
 
 ```text
 gradlew.bat clean check build
