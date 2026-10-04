@@ -15,7 +15,7 @@ Uses only AE2's existing client-to-server pattern-slot edits.
 [[dependencies.${mod_id}]]
 modId="neoforge"
 type="required"
-versionRange="[21.1,22)"
+versionRange="[26.1.2,26.2)"
 ordering="NONE"
 side="CLIENT"
 
@@ -29,6 +29,6 @@ side="CLIENT"
 [[dependencies.${mod_id}]]
 modId="ae2"
 type="required"
-versionRange="[19.2.0,19.3.0)"
+versionRange="[26.1.0,26.2.0)"
 ordering="AFTER"
 side="CLIENT"

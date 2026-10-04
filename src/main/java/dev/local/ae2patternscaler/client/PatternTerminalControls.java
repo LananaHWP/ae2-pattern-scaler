@@ -13,8 +13,11 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import appeng.api.stacks.AEFluidKey;
 import appeng.api.stacks.GenericStack;
@@ -24,7 +27,9 @@ import appeng.helpers.InventoryAction;
 import appeng.parts.encoding.EncodingMode;
 
 import dev.local.ae2patternscaler.AmountScaler;
+import dev.local.ae2patternscaler.Ae2PatternScaler;
 
+@EventBusSubscriber(modid = Ae2PatternScaler.MOD_ID, value = Dist.CLIENT)
 public final class PatternTerminalControls {
     private static final long MAX_DISPLAY_UNITS = 999_999L;
     private static final int BUTTON_WIDTH = 28;
@@ -52,6 +57,7 @@ public final class PatternTerminalControls {
     private PatternTerminalControls() {
     }
 
+    @SubscribeEvent
     public static void onScreenInit(ScreenEvent.Init.Post event) {
         if (!(event.getScreen() instanceof PatternEncodingTermScreen<?> screen)) {
             return;
@@ -61,7 +67,7 @@ public final class PatternTerminalControls {
         int rows = (OPERATIONS.size() + COLUMNS - 1) / COLUMNS;
         int panelHeight = rows * BUTTON_HEIGHT + (rows - 1) * GAP;
         int leftX = screen.getGuiLeft() - panelWidth - 4;
-        int rightX = screen.getGuiLeft() + screen.getXSize() + 4;
+        int rightX = screen.getGuiLeft() + screen.getImageWidth() + 4;
 
         final int startX;
         if (leftX >= 0) {
@@ -74,7 +80,7 @@ public final class PatternTerminalControls {
             return;
         }
 
-        int preferredY = screen.getGuiTop() + screen.getYSize() - PATTERN_SLOTS_BOTTOM_OFFSET;
+        int preferredY = screen.getGuiTop() + screen.getImageHeight() - PATTERN_SLOTS_BOTTOM_OFFSET;
         int startY = Math.max(4, Math.min(preferredY, screen.height - panelHeight - 4));
         boolean processing = screen.getMenu().getMode() == EncodingMode.PROCESSING;
         List<Button> buttons = new ArrayList<>(OPERATIONS.size());
@@ -99,6 +105,7 @@ public final class PatternTerminalControls {
         CONTROLS.put(screen, buttons);
     }
 
+    @SubscribeEvent
     public static void onScreenRender(ScreenEvent.Render.Pre event) {
         if (!(event.getScreen() instanceof PatternEncodingTermScreen<?> screen)) {
             return;
@@ -116,6 +123,7 @@ public final class PatternTerminalControls {
         }
     }
 
+    @SubscribeEvent
     public static void onScreenClosing(ScreenEvent.Closing event) {
         if (event.getScreen() instanceof PatternEncodingTermScreen<?> screen) {
             CONTROLS.remove(screen);
@@ -146,7 +154,7 @@ public final class PatternTerminalControls {
                     InventoryAction.SET_FILTER,
                     update.slot().index,
                     GenericStack.wrapInItemStack(update.stack()));
-            PacketDistributor.sendToServer(packet);
+            ClientPacketDistributor.sendToServer(packet);
         }
 
         showMessage(Component.translatable(
@@ -233,7 +241,7 @@ public final class PatternTerminalControls {
     private static void showMessage(Component message) {
         var player = Minecraft.getInstance().player;
         if (player != null) {
-            player.displayClientMessage(message, true);
+            player.sendOverlayMessage(message);
         }
     }
 
